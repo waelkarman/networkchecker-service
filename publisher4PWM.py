@@ -21,13 +21,13 @@ def main(url=None):
 
     while True:
         # Send one random update per second
+        time.sleep(1)
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             s.connect(("8.8.8.8", 80))
             print(s.getsockname()[0])
 
             # Ensure subscriber connection has time to complete
-            time.sleep(1)
             ipstr = f"AWAKE ON {s.getsockname()[0]}"
             publisher.send_multipart([
                 b"PASSIVEBUZZER",
