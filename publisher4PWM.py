@@ -14,7 +14,7 @@ import zmq
 
 def main(url=None):
 
-    
+
     ctx = zmq.Context.instance()
     publisher = ctx.socket(zmq.PUB)
     publisher.bind("tcp://*:5557")
@@ -30,15 +30,15 @@ def main(url=None):
             # Ensure subscriber connection has time to complete
             ipstr = f"AWAKE ON {s.getsockname()[0]}"
             publisher.send_multipart([
-                b"PASSIVEBUZZER",
+                b"NETWORK",
                 bytes(ipstr, 'utf-8'),
             ])
         except Exception as e:
             publisher.send_multipart([
-                b"PASSIVEBUZZER",
+                b"NETWORK",
                 bytes("NOT CONNECTED", 'utf-8'),
             ])
-            
+
 
 if __name__ == '__main__':
     main(sys.argv[1] if len(sys.argv) > 1 else None)
